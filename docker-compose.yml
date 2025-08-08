@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile    
+    ports:
+      - ${BACKEND_PORT:-7000}:${BACKEND_PORT:-7000}
+    environment:
+      - PORT=${BACKEND_PORT:-7000}
+    volumes:
+      - ./packages/backend:/app
+    working_dir: /app
+    command: yarn run dev
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    
+  web:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+    ports:
+      - ${WEB_PORT:-7001}:${WEB_PORT:-7001}
+    environment:
+      - PORT=${WEB_PORT:-7001}
+    volumes:
+      - ./packages/web:/app
+    working_dir: /app
+    command: yarn run dev
+
+volumes:
+  mongodb_data:
