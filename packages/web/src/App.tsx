@@ -1,13 +1,17 @@
-import React from 'react'
-import './App.css'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import Route from './routes/index'
+import { store } from './store'
+import AuthInitializer from './components/AuthInitializer'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Welcome to the Book Club!
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <AuthInitializer />
+        <Route/>
+      </Router>
+    </Provider>
   )
 }
 
