@@ -143,5 +143,21 @@ book-club/
 - **Backend**: `packages/backend/README.md`
 - **Frontend**: `packages/web/README.md`
 
+## Screenshot GIFs
+
+Signup - Login
+
+![](https://github.com/Jitendra-vtpl/book-club/blob/81853c9bc5638817bea5583a7d85e52ebf984ed6/Signup-Login.gif)
+
+
+Reading list
+
+![](https://github.com/Jitendra-vtpl/book-club/blob/81853c9bc5638817bea5583a7d85e52ebf984ed6/Reading%20List.gif)
+
+
+Review
+
+![](https://github.com/Jitendra-vtpl/book-club/blob/81853c9bc5638817bea5583a7d85e52ebf984ed6/Review.gif)
+
 
 ---
