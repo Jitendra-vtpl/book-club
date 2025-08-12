@@ -10,7 +10,7 @@ A book club app where users can discover books, build reading lists, write revie
 - Real-time updates
 - User login and registration
 
-## Tech stuff
+## Technology
 
 - **Backend**: Node.js, Express, TypeScript, MongoDB
 - **Frontend**: React, TypeScript, Redux
@@ -21,7 +21,7 @@ A book club app where users can discover books, build reading lists, write revie
 
 ## Getting started
 
-### What you need
+### What need
 - Docker & Docker Compose
 - Node.js 22.10.0 (to run local without Docker)
 
@@ -31,13 +31,13 @@ A book club app where users can discover books, build reading lists, write revie
 
 1. **Clone and go to the project**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Jitendra-vtpl/book-club.git
 cd book-club
 ```
 
 2. **Start app**
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 3. **Seed database with sample data**
@@ -46,34 +46,34 @@ docker compose run --rm backend yarn seed
 ```
 
 4. **Open in browser**
-- **Frontend**: http://localhost:8001
+- **Frontend**: http://localhost:7001
     ```bash
     # Login default User
     Email: gravity@bookclub.com
     Password: gravity@123
     ```
-- **Backend API**: http://localhost:8000
-- **Backend Health check API**: http://localhost:8000/health
+- **Backend API**: http://localhost:7000
+- **Backend Health check API**: http://localhost:7000/health
 
 5. **Check logs**
 ```bash
 # All services
-docker-compose logs -f
+docker compose logs -f
 
 # Specific service
-docker-compose logs -f backend
-docker-compose logs -f frontend
+docker compose logs -f backend
+docker compose logs -f frontend
 ```
 
 6. **Stop app**
 ```bash
-docker-compose down
+docker compose down
 ```
 
 7. **Set env for custom port (optional)**
 ```bash
-BACKEND_PORT=8000
-WEB_PORT=8001
+BACKEND_PORT=7000
+WEB_PORT=7001
 ```
 
 ## Development
@@ -94,11 +94,6 @@ yarn dev        # dev server
 ```
 
 ## Docker commands
-
-#### Go to the app directory
-```bash
-cd book-club
-```
 
 ### Build images
 ```bash
@@ -140,8 +135,8 @@ book-club/
 
 ## To know more about Backend and Frontend
 
-- **Backend**: `packages/backend/README.md`
-- **Frontend**: `packages/web/README.md`
+- **Backend**: `packages/backend/README.md` [README.md](packages/backend/README.md)
+- **Frontend**: `packages/web/README.md` [README.md](packages/web/README.md)
 
 ## Screenshot GIFs
 
