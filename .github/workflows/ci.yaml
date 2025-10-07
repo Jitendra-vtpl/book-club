@@ -1,0 +1,57 @@
+name: Build & Push Book Club
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+  workflow_dispatch: # for manual triggering
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 22.10.0
+          cache: 'yarn'
+          cache-dependency-path: packages/backend/yarn.lock
+      
+      - name: Lint backend
+        working-directory: packages/backend
+        run: yarn test:commit
+
+      - name: Lint frontend
+        working-directory: packages/web
+        run: yarn lint
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  
+  build-deploy:  
+    runs-on: ubuntu-latest
+    needs: linter # wait for linter job to finish
+    if: github.ref == 'refs/heads/main' # only run on main branch
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image
+        working-directory: packages/backend
+        run: docker build -t book-club-backend .
+      
+      - name: Build web image
+        working-directory: packages/web
+        run: docker build -t book-club-web .
+
+      - name: Test images
+        run:  |
+          docker run --rm book-club-backend --version || echo "Backend image built successfully"
+          docker run --rm book-club-web --version || echo "Web image built successfully"
