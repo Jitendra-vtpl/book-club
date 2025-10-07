@@ -19,14 +19,22 @@ jobs:
         uses: actions/setup-node@v4
         with: 
           node-version: 22.10.0
-          cache: 'yarn'
-          cache-dependency-path: packages/backend/yarn.lock
+          # cache: 'yarn'
+          # cache-dependency-path: packages/backend/yarn.lock
       
+      - name: Install backend dependencies
+        working-directory: packages/backend
+        run: yarn install --frozen-lockfile
+
+      - name: Install web dependencies
+        working-directory: packages/web
+        run: yarn install --frozen-lockfile
+
       - name: Lint backend
         working-directory: packages/backend
         run: yarn test:commit
 
-      - name: Lint frontend
+      - name: Lint web
         working-directory: packages/web
         run: yarn lint
 
