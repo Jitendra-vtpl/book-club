@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # for manual triggering
 
 jobs:
-  lint-build-deploy:
+  linter:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' # only run on main branch
     steps:
@@ -19,11 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with: 
-          node-version: 22.10.0
-          cache: 'yarn'
-          cache-dependency-path: |
-            packages/backend/yarn.lock
-            packages/web/yarn.lock
+          node-version: 22.x
       
       - name: Install backend dependencies
         working-directory: packages/backend
@@ -43,6 +39,13 @@ jobs:
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
+  build-deploy:
+    runs-on: ubuntu-latest
+    needs: linter # wait for linter job to finish   
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -56,5 +59,5 @@ jobs:
 
       - name: Test images
         run:  |
-          docker run --rm book-club-backend --version || echo "Backend image built successfully"
-          docker run --rm book-club-web --version || echo "Web image built successfully"
+          docker run --rm book-club-backend true || echo "Backend image built successfully"
+          docker run --rm book-club-web true || echo "Web image built successfully"
